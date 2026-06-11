@@ -1,1 +1,11 @@
-`If you lose the last game of the season, nobody gives a shit.`
+```
+npm install
+```
+
+```
+npm run db:push
+```
+
+```
+npm run db:seed
+```
