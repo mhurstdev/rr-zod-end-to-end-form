@@ -1,0 +1,77 @@
+{
+	"version": "7",
+	"dialect": "sqlite",
+	"id": "6c75f702-f20e-4fcb-aaf7-e1d3d1dcfccb",
+	"prevIds": ["00000000-0000-0000-0000-000000000000"],
+	"ddl": [
+		{
+			"name": "user",
+			"entityType": "tables"
+		},
+		{
+			"type": "text(36)",
+			"notNull": false,
+			"autoincrement": false,
+			"default": null,
+			"generated": null,
+			"name": "id",
+			"entityType": "columns",
+			"table": "user"
+		},
+		{
+			"type": "text",
+			"notNull": true,
+			"autoincrement": false,
+			"default": null,
+			"generated": null,
+			"name": "name",
+			"entityType": "columns",
+			"table": "user"
+		},
+		{
+			"type": "text",
+			"notNull": true,
+			"autoincrement": false,
+			"default": null,
+			"generated": null,
+			"name": "email",
+			"entityType": "columns",
+			"table": "user"
+		},
+		{
+			"type": "integer",
+			"notNull": true,
+			"autoincrement": false,
+			"default": null,
+			"generated": null,
+			"name": "created_at",
+			"entityType": "columns",
+			"table": "user"
+		},
+		{
+			"type": "integer",
+			"notNull": true,
+			"autoincrement": false,
+			"default": null,
+			"generated": null,
+			"name": "updated_at",
+			"entityType": "columns",
+			"table": "user"
+		},
+		{
+			"columns": ["id"],
+			"nameExplicit": false,
+			"name": "user_pk",
+			"table": "user",
+			"entityType": "pks"
+		},
+		{
+			"columns": ["email"],
+			"nameExplicit": false,
+			"name": "user_email_unique",
+			"entityType": "uniques",
+			"table": "user"
+		}
+	],
+	"renames": []
+}

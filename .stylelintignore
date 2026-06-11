@@ -1,0 +1,6 @@
+build/
+build-storybook/
+node_modules/
+package-lock.json
+.react-router/
+*.gen.ts

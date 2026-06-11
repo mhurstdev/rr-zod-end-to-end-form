@@ -1,0 +1,93 @@
+{
+	"name": "rr-starter",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "react-router build",
+		"dev": "react-router dev",
+		"start": "react-router-serve ./build/server/index.js",
+		"db:push": "drizzle-kit push",
+		"db:seed": "tsx ./app/db/seeds/index.ts",
+		"db:generate": "drizzle-kit generate",
+		"build:storybook": "storybook build -o build-storybook",
+		"dev:storybook": "storybook dev -p 6006",
+		"format": "prettier . --write",
+		"lint": "eslint . --fix && stylelint '**/*.css' --fix",
+		"lint:ts": "eslint . --fix",
+		"lint:css": "stylelint '**/*.css' --fix",
+		"typecheck": "react-router typegen && tsc",
+		"prepare": "husky || true",
+		"test": "vitest --run --passWithNoTests",
+		"test:watch": "vitest"
+	},
+	"lint-staged": {
+		"*.{ts,tsx}": [
+			"prettier --write",
+			"eslint --fix"
+		],
+		"*.css": [
+			"prettier --write",
+			"stylelint --fix"
+		],
+		"*.{json,md}": [
+			"prettier --write"
+		]
+	},
+	"dependencies": {
+		"@react-router/fs-routes": "^7.17.0",
+		"@react-router/node": "^7.17.0",
+		"@react-router/serve": "^7.17.0",
+		"better-sqlite3": "^12.10.0",
+		"clsx": "^2.1.1",
+		"drizzle-orm": "^1.0.0-beta.22",
+		"isbot": "^5",
+		"modern-normalize": "^3.0.1",
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"react-router": "^7.17.0",
+		"zod": "^4.4.3",
+		"zod-form-data": "^3.0.2"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "^20.5.0",
+		"@commitlint/config-conventional": "^20.5.0",
+		"@eslint/js": "^9.39.4",
+		"@ianvs/prettier-plugin-sort-imports": "^4.7.1",
+		"@react-router/dev": "^7.17.0",
+		"@storybook/react": "^10.3.5",
+		"@storybook/react-vite": "^10.3.5",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@testing-library/user-event": "^14.6.1",
+		"@types/better-sqlite3": "^7.6.13",
+		"@types/eslint-plugin-jsx-a11y": "^6.10.1",
+		"@types/node": "^22",
+		"@types/react": "^19.2.14",
+		"@types/react-dom": "^19.2.3",
+		"@vitejs/plugin-react": "^6.0.1",
+		"dotenv": "^17.4.2",
+		"drizzle-kit": "^1.0.0-beta.22",
+		"eslint": "^9.39.4",
+		"eslint-import-resolver-typescript": "^4.4.4",
+		"eslint-plugin-import": "^2.32.0",
+		"eslint-plugin-jsx-a11y": "^6.10.2",
+		"eslint-plugin-react": "^7.37.5",
+		"eslint-plugin-react-hooks": "^7.1.1",
+		"eslint-plugin-testing-library": "^7.16.2",
+		"globals": "^17.5.0",
+		"husky": "^9.1.7",
+		"jiti": "^2.6.1",
+		"jsdom": "^29.0.2",
+		"lint-staged": "^16.4.0",
+		"msw": "^2.13.4",
+		"prettier": "^3.8.3",
+		"storybook": "^10.3.5",
+		"stylelint": "^17.0.0",
+		"stylelint-config-standard": "^40.0.0",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.58.2",
+		"vite": "^8.0.3",
+		"vitest": "^4.1.4",
+		"vitest-axe": "^0.1.0"
+	}
+}

@@ -1,0 +1,6 @@
+build
+build-storybook
+node_modules
+.react-router/
+README.md
+*.gen.ts
