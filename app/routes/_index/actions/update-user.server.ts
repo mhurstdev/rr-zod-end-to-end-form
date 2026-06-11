@@ -3,6 +3,7 @@ import * as z from 'zod';
 import { zfd } from 'zod-form-data';
 import { EmailAddressAlreadyRegistered } from '@/db/errors/constraints';
 import { updateUserSchema, userSchema } from '@/db/schema/user/schemas';
+import { makeErrorFactory } from '@/helpers/make-error-factory';
 import { UserRepository } from '@/repositories/user.server';
 import type { Route } from '../+types/route';
 
@@ -10,6 +11,9 @@ const updateUserFormSchema = zfd.formData({
 	id: userSchema.shape.id,
 	...updateUserSchema.shape,
 });
+
+const updateUserErrorFactory =
+	makeErrorFactory<z.infer<typeof updateUserFormSchema>>();
 
 export async function updateUserAction(
 	_args: Route.ActionArgs,
@@ -33,20 +37,11 @@ export async function updateUserAction(
 		return data({ ok: true, updatedUser });
 	} catch (error) {
 		if (error instanceof EmailAddressAlreadyRegistered) {
-			/*
-			 * This could be a type-safe utility since we have to write this boilerplate
-			 * everywhere and populate errorless fields, automating it would be better.
-			 */
 			return data(
-				{
-					errors: {
-						formErrors: [],
-						fieldErrors: {
-							emailAddress: [error.message],
-							name: [],
-						},
-					},
-				},
+				updateUserErrorFactory.fieldError(
+					'emailAddress',
+					error.message,
+				),
 				409,
 			);
 		}
