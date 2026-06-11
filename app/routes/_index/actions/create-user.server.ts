@@ -26,6 +26,10 @@ export async function createUserAction(
 		return data({ ok: true, createdUser }, 201);
 	} catch (error) {
 		if (error instanceof EmailAddressAlreadyRegistered) {
+			/*
+			 * This could be a type-safe utility since we have to write this boilerplate
+			 * everywhere and populate errorless fields, automating it would be better.
+			 */
 			return data(
 				{
 					errors: {
