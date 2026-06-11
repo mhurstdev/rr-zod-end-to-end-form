@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
-import { useFetcher } from 'react-router';
+import { href, useFetcher } from 'react-router';
 import { Field } from '@/components/field';
-import type { createUserAction } from '../actions/create-user.server';
+import type { createUserAction } from '@/routes/api.v1.users/actions/create-user.server';
+
+const CREATE_USER_FORM_FETCHER_KEY = 'create-user-form';
 
 export const CreateUserForm = () => {
-	const fetcher = useFetcher<typeof createUserAction>();
+	// prettier-ignore
+	const fetcher = useFetcher<typeof createUserAction>({ key: CREATE_USER_FORM_FETCHER_KEY });
 	const formRef = useRef<HTMLFormElement | null>(null);
 
 	useEffect(() => {
@@ -18,21 +21,25 @@ export const CreateUserForm = () => {
 	const fieldErrors =
 		fetcher.data && 'errors' in fetcher.data
 			? fetcher.data.errors.fieldErrors
-			: undefined;
+			: {};
 
 	return (
-		<fetcher.Form method="post" ref={formRef}>
+		<fetcher.Form
+			method="post"
+			ref={formRef}
+			action={href('/api/v1/users')}
+		>
 			<fieldset disabled={isBusy}>
 				<legend>Create user</legend>
-				<input type="hidden" name="intent" value="create-user" />
+				<input type="hidden" name="action" value="create-user" />
 
-				<Field.Root errors={fieldErrors?.name}>
+				<Field.Root errors={fieldErrors.name}>
 					<Field.Label>Name</Field.Label>
 					<Field.Input name="name" />
 					<Field.Error />
 				</Field.Root>
 
-				<Field.Root errors={fieldErrors?.emailAddress}>
+				<Field.Root errors={fieldErrors.emailAddress}>
 					<Field.Label>Email</Field.Label>
 					<Field.Input name="emailAddress" type="email" />
 					<Field.Error />

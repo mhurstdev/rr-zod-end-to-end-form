@@ -2,13 +2,12 @@ import { data } from 'react-router';
 import * as z from 'zod';
 import { zfd } from 'zod-form-data';
 import { EmailAddressAlreadyRegistered } from '@/db/errors/constraints';
-import { updateUserSchema, userSchema } from '@/db/schema/user/schemas';
+import { updateUserSchema } from '@/db/schema/user/schemas';
 import { makeErrorFactory } from '@/helpers/make-error-factory';
 import { UserRepository } from '@/repositories/user.server';
 import type { Route } from '../+types/route';
 
 const updateUserFormSchema = zfd.formData({
-	id: userSchema.shape.id,
 	...updateUserSchema.shape,
 });
 
@@ -16,9 +15,11 @@ const updateUserErrorFactory =
 	makeErrorFactory<z.infer<typeof updateUserFormSchema>>();
 
 export async function updateUserAction(
-	_args: Route.ActionArgs,
+	{ params }: Route.ActionArgs,
 	formData: FormData,
 ) {
+	const { userId } = params;
+
 	const result = updateUserFormSchema.safeParse(formData);
 
 	if (!result.success) {
@@ -27,10 +28,9 @@ export async function updateUserAction(
 
 	const userRepository = new UserRepository();
 
-	const { id, ...values } = result.data;
-
 	try {
-		const updatedUser = await userRepository.updateUser(id, values);
+		// prettier-ignore
+		const updatedUser = await userRepository.updateUser(userId, result.data);
 
 		if (!updatedUser) return data({ error: 'User not found' }, 404);
 

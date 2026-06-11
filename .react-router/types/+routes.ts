@@ -14,12 +14,28 @@ type Pages = {
   "/": {
     params: {};
   };
+  "/api/v1/users": {
+    params: {};
+  };
+  "/api/v1/users/:userId": {
+    params: {
+      "userId": string;
+    };
+  };
 };
 
 type RouteFiles = {
   "root.tsx": {
     id: "root";
-    page: "/";
+    page: "/" | "/api/v1/users" | "/api/v1/users/:userId";
+  };
+  "routes/api.v1.users/route.ts": {
+    id: "routes/api.v1.users";
+    page: "/api/v1/users" | "/api/v1/users/:userId";
+  };
+  "routes/api.v1.users.$userId/route.ts": {
+    id: "routes/api.v1.users.$userId";
+    page: "/api/v1/users/:userId";
   };
   "routes/_index/route.tsx": {
     id: "routes/_index";
@@ -29,5 +45,7 @@ type RouteFiles = {
 
 type RouteModules = {
   "root": typeof import("./app/root.tsx");
+  "routes/api.v1.users": typeof import("./app/routes/api.v1.users/route.ts");
+  "routes/api.v1.users.$userId": typeof import("./app/routes/api.v1.users.$userId/route.ts");
   "routes/_index": typeof import("./app/routes/_index/route.tsx");
 };
